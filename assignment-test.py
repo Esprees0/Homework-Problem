@@ -1,73 +1,3 @@
-def create_distance_dict(*args):
-    distances = {}
-    for arg in args:
-        for key, value in arg.items():
-            if key[0] not in distances:
-                distances[key[0]] = {}
-            distances[key[0]][key[1]] = value
-    return distances
-
-
-def display_destinations(location, distances):
-    print(f"\nAvailable destinations from {location}:")
-    destinations = distances[location]
-    for i, (destination, distance) in enumerate(destinations.items(), start=1):
-        print(f"{i}. {destination} (Distance: {distance} meters)")
-
-def main():
-    distances = create_distance_dict(Guardhouse, GrandPalace, Library, Hotel, BAS, Round_about, AI, Male_dor, Female_dor1, Female_dor2, Sport_build, FITM, BNG, Admin_build)
-
-    print("Welcome to the Travel Planner!")
-    
-    current_location = None  # Track the current location
-
-    while True:
-        if current_location is None:
-            print("\nAvailable starting locations:")
-            for i, location in enumerate(distances.keys(), start=1):
-                print(f"{i}. {location}")
-        else:
-            print(f"\nYou are currently at {current_location}.")
-            display_destinations(current_location, distances)
-
-        start_choice = input("\nEnter the number of your starting location, 'back' to choose a different starting location, or 'exit' to quit: ").strip()
-
-        if start_choice.lower() == 'exit':
-            print("Exiting program...")
-            break
-
-        if start_choice.lower() == 'back':
-            current_location = None
-            continue
-
-        try:
-            start_index = int(start_choice)
-            if 1 <= start_index <= len(distances):
-                current_location = list(distances.keys())[start_index - 1]
-
-                while True:
-                    display_destinations(current_location, distances)
-
-                    destination_choice = input("\nEnter the number of the destination you want to go to or 'back' to choose a different starting location: ").strip()
-
-                    if destination_choice.lower() == 'back':
-                        break
-
-                    try:
-                        destination_index = int(destination_choice)
-                        destinations = list(distances[current_location].keys())
-                        if 1 <= destination_index <= len(destinations):
-                            destination = destinations[destination_index - 1]
-                            print(f"\nYou have chosen to go from {current_location} to {destination}.")
-                            print(f"The distance between {current_location} and {destination} is {distances[current_location][destination]} meters.")
-                            current_location = destination  # Update current location
-                        else:
-                            print("Invalid number. Please choose a number from the list.")
-                    except ValueError:
-                        print("Invalid input. Please enter a number.")
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-
 Guardhouse = {
     ("Guardhouse", "Grand Palace"):175,
 	("Guardhouse", "Villa Vichalai Hotel"):480,
@@ -290,4 +220,3 @@ Admin_build = {
 	("Administration Building", "Faculty of Engineering"):1500,
 	("Administration Building", "Central Library Office"):350	
 }
-main()

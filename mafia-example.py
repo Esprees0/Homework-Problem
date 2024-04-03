@@ -181,5 +181,5 @@ def main():
         except (IndexError, ValueError):
             print("Invalid choice. Please enter a valid number.")
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()
